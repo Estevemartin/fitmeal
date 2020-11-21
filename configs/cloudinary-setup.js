@@ -1,10 +1,6 @@
-const cloudinary = require('cloudinary');
-// const cloudinaryStorage = require('multer-storage-cloudinary');
-const multer = require('multer');
-
-// const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-
+const multer = require('multer');
 
 cloudinary.config({
   cloud_name: process.env.cloudName,
@@ -12,34 +8,14 @@ cloudinary.config({
   api_secret: process.env.cloudSecret
 });
 
-// var storage = cloudinaryStorage({
-//   cloudinary,
-//   folder: 'movie-gallery', // The name of the folder in cloudinary
-//   allowedFormats: ['jpg', 'png'],
-//   // params: { resource_type: 'raw' }, => this is in case you want to upload other type of files, not just images
-//   filename: function (req, res, cb) {
-//     let fileName = res.originalname.split(".");
-//     cb(null, fileName[0]); // The file on cloudinary would have the same name as the original file name
-//   }
-// });
-
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  folder: 'gallery',
-  allowedFormats: ['jpg', 'png'],
-  filename: function (req, res, cb) {
-    let fileName = res.originalname.split(".");
-    cb(null, fileName[0]); 
-  }
-
-  // params: {
-  //   folder: 'gallery',
-  //   format: async (req, file) => 'png', // supports promises as well
-  //   public_id: (req, file) => 'computed-filename-using-request',
-  // },
+  params: {
+    folder: 'gallery',
+    format: async (req, file) => 'png', // supports promises as well
+    public_id: (req, file) => 'computed-filename-using-request',
+  },
 });
-
-
+ 
 const uploader = multer({ storage });
 module.exports = uploader;
