@@ -9,8 +9,9 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const cors = require("cors");
-
+const upload = require('./routes/file-upload-routes')
 const auth = require("./routes/auth");
+const routes = require("./routes/routes");
 
 // MONGOOSE CONNECTION
 mongoose
@@ -65,6 +66,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTER MIDDLEWARE
 app.use("/auth", auth);
+
+// ROUTES 
+app.use("/", routes);
+app.use('/api', upload);
 
 // ERROR HANDLING
 // catch 404 and forward to error handler

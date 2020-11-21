@@ -1,43 +1,41 @@
 # Fit Meal
 
-<br>
-
-## Description
-
-This is an app to manage unofficial tournaments within communities. The app helps to organize, manage and track competitions.
+The app that allow you to create, discover and share recipes and meal plans to improve your eating habits.
 
 ## User Stories
 
 -  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
--  **Signup:** As an anon I can sign up in the platform so that I can start playing into competition
--  **Login:** As a user I can login to the platform so that I can play competitions
--  **Logout:** As a user I can logout from the platform so no one else can use it
--  **Add Tournaments** As a user I can add a tournament
--  **Edit Tournaments** As a user I can edit a tournament
--  **Add Player Names** As a user I can add players to a tournament
--  **Edit Player profiles** As a user I can edit a player profile to fit into the tournament view
--  **View Tournament Table** As a user I want to see the tournament table
--  **Edit Games** As a user I can edit the games, so I can add scores
--  **View Ranks** As a user I can see the ranks
-
-
+-  **Signup:** As an anon I can sign up in the app so that I can start creating, sharing and discovering recipes and meal plans.
+-  **Login:** As a user I can login to the app so that I can create, share and discover recipes and meal plans.
+-  **Logout:** As a user I can logout from the ap so no one else can use it.
+-  **Home:** As an anon I can see the main features of the app, some mock ups, and the Signup and Login links.
+-  **Home:** As a user I can see a list of recipies and categories to explore.
+-  **Plans:**
+      - **Home:** As a user I can see a list of plans made by other users.
+      - **Details:** As a user I can see the meals planned for each week day.
+- **Recipes:**
+      - **Home:** As a user I can see a list of the most popular recipes done by other users.
+      - **Details:** As a user I can see a picture of the meal, de ingredients, the preparation process and the needed time, the dificulty level and Like and Save the recipe.
+- **Profile:**
+  As a user I can edit my name, email, password, profile pictures and background picture. I can also log out, or delete my account.
+      - **My Recipies:** As a user I can see and edit de recipies that I have created.
+      - **My Plans:** As a user I can see and edit the meal plans that I have created.
+      - **Saved:** As a user I can see all the recipies and meal plans that I have saved from other users.
 
 
 ## Backlog
 
 User profile:
-- see my profile
-- change tournament mode to FFA
-- Add weather widget
-- lottie interactions
-- users can bet
-- add geolocation to events when creating
+- Search, sort and filter recipes and meal plans by:
+    - Words present in the meal description.
+    - Ingredients.
+    - Preparation Time.
+    - Dificulty Level.
+- Show the total amount of calories of a meal or a plan.
+- Creat a shoppint list based on the ingredients and quantities that appear in a meal plan.
 
 
-<br>
-
-
-# Client / Frontend
+# Client / Frontend (Pending)
 
 ## React Router Routes (React App)
 | Path                      | Component            | Permissions                 | Behavior                                                     |
@@ -60,7 +58,7 @@ User profile:
 
 
 
-## Components
+## Components (Pending)
 
 - LoginPage
 
@@ -89,7 +87,7 @@ User profile:
 
  
 
-## Services
+## Services (Pending)
 
 - Auth Service
   - auth.login(user)
@@ -118,7 +116,7 @@ User profile:
 <br>
 
 
-# Server / Backend
+# Server / Backend 
 
 
 ## Models
@@ -130,46 +128,91 @@ User model
   username: {type: String, required: true, unique: true},
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  favorites: [Tournament]
+  profilePictureUrl:{type: String},
+  backgroundPictureUrl:{type:String},
+  saved: {type:Schema.Types.ObjectId, ref:'Recipes',type:Schema.Types.ObjectId, ref:'Plans', default:[]},
+  recipes: {type:Schema.Types.ObjectId, ref:'Recipes', default:[]},
+  plans: {type:Schema.Types.ObjectId, ref:'Plans', default:[]},
+
 }
 ```
 
 
 
-Tournament model
+Recipes model
 
 ```javascript
  {
-   name: {type: String, required: true},
-   img: {type: String},
-   players: [{type: Schema.Types.ObjectId,ref:'Participant'}],
-   games: [{type: Schema.Types.ObjectId,ref:'Game'}]
+   title: {type: String, required: true},
+   author: {type: Schema.Types.ObjectId, ref:'User', required: true},
+   picture: {type: String},
+   ingredientsText: {type: String, required:true},
+   preparation: {type: String, required:true},
+   preparationTime: {typee: String, required: true},
+   dificultyLevel: {type:String, required:true}
  }
 ```
 
 
 
-Player model
+Meal Plan model
 
 ```javascript
 {
-  name: {type: String, required: true},
-  img: {type: String},
-  score: []
-}
-```
-
-
-
-Game model
-
-```javascript
-{
-  player1: [{type: Schema.Types.ObjectId,ref:'Participant'}],
-  player2: [{type: Schema.Types.ObjectId,ref:'Player'}],
-  player2: [{type: Schema.Types.ObjectId,ref:'Player'}],
-  winner: {type: String},
-  img: {type: String}
+  title: {type: String, required: true},
+   author: {type: Schema.Types.ObjectId, ref:'User', required: true},
+   picture: {type: String},
+   plan:{
+       monday:{
+           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+       },
+       tuesday:{
+           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+       },
+       wednesday:{
+           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+       },
+       thursday:{
+           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+       },
+       friday:{
+           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+       },
+       saturday:{
+           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+       },
+       sunday:{
+           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+       }       
+   }
 }
 ```
 
@@ -177,7 +220,7 @@ Game model
 <br>
 
 
-## API Endpoints (backend routes)
+## API Endpoints (backend routes) (Pending)
 
 | HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
 | ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
@@ -207,30 +250,12 @@ Game model
 
 ## Links
 
-### Trello/Kanban
+[Trello](https://trello.com/b/J9EbMXg1/fitmeal) 
 
-[Link to your trello board](https://trello.com/b/PBqtkUFX/curasan) 
-or picture of your physical board
+[Client repository](https://github.com/Estevemartin/fitmeal-client)
 
-### Git
+[Server repository](https://github.com/Estevemartin/fitmeal-server)
 
-The url to your repository and to your deployed project
+[Deploy]()
 
-[Client repository Link](https://github.com/screeeen/project-client)
-
-[Server repository Link](https://github.com/screeeen/project-server)
-
-[Deployed App Link](http://heroku.com)
-
-### Slides
-
-The url to your presentation slides
-
-[Slides Link](http://slides.com)
-
-
-
-
-
-
-
+[Slides]()
