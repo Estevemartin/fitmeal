@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
     const recipeSchema = new Schema({
         title: {type: String, required: true},
-        author: [{type: Schema.Types.ObjectId, ref:'User'}],
+        author: {type: Schema.Types.ObjectId, ref:'User'},
         imageUrl: {type: String, required: true},
         ingredients: {type: Array, required:true},
         steps: {type: Array, required:true},
