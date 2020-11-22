@@ -8,9 +8,10 @@ const Schema = mongoose.Schema;
         ingredients: {type: Array, required:true},
         steps: {type: Array, required:true},
         prepTime: {type: String, required: true},
-        difficulty: {type:String, required:true},
+        difficulty: {type:String, required:true,enum:['Easy','Medium','Hard']},
         portions: {type: String, required: true},
-        popularity:{type:Number, default:0}
+        popularity:{type:Number,default:0},
+        category:{type:String,required:true,enum:['breakfast','brunch','lunch','snack','dinner']}
     });
 
   const Recipe = mongoose.model('Recipe', recipeSchema);
