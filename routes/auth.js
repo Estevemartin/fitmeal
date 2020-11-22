@@ -16,16 +16,22 @@ const {
 
 //  POST '/signup'
 router.post("/signup", isNotLoggedIn(), validationLoggin(), async (req, res, next) => {
-    const {username, password} = req.body;
+    const {username, password, email} = req.body;
+    console.log("INSIDE SIGNUP POST")
+    console.log(username,password,email)
+    let username2="@"+username
     try {
-        const usernameExists = await User.findOne({ username:username }, "username")
+        const usernameExists = await User.findOne({ username:username2 }, "username")
         if (usernameExists) return next(createError(400));
 
     else {
+       console.log("can create new user: ", username2)
+
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashPass = bcrypt.hashSync(password, salt);
-        const newUser = await User.create({username:username, password:hashPass})
+        const newUser = await User.create({username:username2, password:hashPass, email:email})
         req.session.currentUser = newUser;
+        console.log(newUser)
         res.status(200).json(newUser);
         }  
     } catch (error) {
@@ -65,9 +71,9 @@ router.post("/logout", isLoggedIn(), (req, res, next) => {
 
 
 // GET '/private'
-router.get("/private", isLoggedIn(), (req, res, next) => {
-    res.status(200).json({ message: "Test - User is logged in" });
-});
+// router.get("/private", isLoggedIn(), (req, res, next) => {
+//     res.status(200).json({ message: "Test - User is logged in" });
+// });
 
 
 // GET '/me'
