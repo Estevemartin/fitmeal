@@ -5,10 +5,11 @@ const Schema = mongoose.Schema;
         title: {type: String, required: true},
         author: {type: Schema.Types.ObjectId, ref:'User'},
         imageUrl: {type: String, required: true},
-        ingredients: {type: String, required:true},
-        preparation: {type: String, required:true},
+        ingredients: {type: Array, required:true},
+        steps: {type: Array, required:true},
         prepTime: {type: String, required: true},
-        difficulty: {type:String, required:true}
+        difficulty: {type:String, required:true},
+        portions: {type: String, required: true}
     });
 
   const Recipe = mongoose.model('Recipe', recipeSchema);

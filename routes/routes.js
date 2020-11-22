@@ -26,7 +26,7 @@ router.get('/recipes', async (req, res, next) => {
         const getRecipes = await Recipes.find()
         res.status(200).json(getRecipes)
     } catch (error) {
-        console.log('/recipes ERROR: ', error)
+        console.log('/recipes (GET) ERROR: ', error)
     }
 })
 
@@ -35,7 +35,7 @@ router.post('/recipes/create', async (req, res, next) => {
         const newRecipe = await Recipes.create(req.body)
         res.status(200).json(newRecipe);
     } catch(error) { 
-        console.log('/recipes/create ERROR: ', error)
+        console.log('/recipes/create(POST) ERROR: ', error)
     }
 })
 
