@@ -36,14 +36,19 @@ router.get('/recipes/:id', async (req,res,next)=>{
     }
 })
 
-
-router.get('/recipes/:id', async (req, res, next)=>{
+router.get('/category/:category', async (req,res,next)=>{
     try {
-        let response = await Recipes.findOne({_id:req.params.id}).populate('author')
-        res.status(200).json(response);  
+        // console.log("EN SERVER, req.params.category:",req.params.category)
+        const category =req.params.category
+        // console.log("Filtered Category:", category)
+        const getRecipe = await Recipes.find({category:category}).populate('author')
+        // console.log("RECIPIE RESPONSE:",getRecipe)
+        res.status(200).json(getRecipe)
     } catch (error) {
-      res.json(error);
+        console.log('/recipes (GET) ERROR: ', error)
     }
 })
+
+
 
 module.exports = router;
