@@ -1,29 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const Recipes = require("../models/recipes");
+const User = require("../models/user");
 
-// router.post("/createRecipe", uploader.single("imageUrl"), async (req, res, next) => {
-//     try {
-//         console.log('inside create recipe')
-//         const { title, prepTime, difficulty, ingredients, preparation } = req.body.recipe;
-//         console.log(req.body)
-//         const newRecipe = await Recipes.create(
-//             { title, imageUrl:req.file.secure_url, prepTime, difficulty, ingredients, preparation, author:req.body._id}
-//         )
-//         if (!req.file) {
-//             next(new Error("No file uploaded!"));
-//             return;
-//           }
-//         res.status(200).json(newRecipe)
-//         // console.log(newRecipe)
-//     } catch (error) {
-//         console.log('/createRecipe ERROR: ', error)
-//     }
-// })
+
 
 router.get('/recipes', async (req, res, next) => {
     try {
-        const getRecipes = await Recipes.find()
+        const getRecipes = await Recipes.find().populate('author')
         res.status(200).json(getRecipes)
     } catch (error) {
         console.log('/recipes (GET) ERROR: ', error)
@@ -36,6 +20,19 @@ router.post('/recipes/create', async (req, res, next) => {
         res.status(200).json(newRecipe);
     } catch(error) { 
         console.log('/recipes/create(POST) ERROR: ', error)
+        res.status(400).json(error)
+    }
+})
+
+router.get('/recipes/:id', async (req,res,next)=>{
+    try {
+        // console.log("EN SERVER, Req.params.id:",req.params.id)
+        const recipeId =req.params.id
+        const getRecipe = await Recipes.findOne({_id:recipeId}).populate('author')
+        // console.log("RECIPIE RESPONSE:",getRecipe)
+        res.status(200).json(getRecipe)
+    } catch (error) {
+        console.log('/recipes (GET) ERROR: ', error)
     }
 })
 
