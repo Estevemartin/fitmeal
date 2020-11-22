@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
         profilePictureUrl:{type: String},
         backgroundPictureUrl:{type:String},
         saved: {type:Schema.Types.ObjectId, ref:'Recipes',type:Schema.Types.ObjectId, ref:'Plans', default:[]},
-        recipes: {type:Schema.Types.ObjectId, ref:'Recipes', default:[]},
+        recipes: [{type:Schema.Types.ObjectId, ref:'Recipes', default:[]}],
         plans: {type:Schema.Types.ObjectId, ref:'Plans', default:[]},
     }, {
         timestamps: {

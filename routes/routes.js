@@ -23,7 +23,7 @@ const Recipes = require("../models/recipes");
 
 router.get('/recipes', async (req, res, next) => {
     try {
-        const getRecipes = await Recipes.find()
+        const getRecipes = await Recipes.find().populate('author')
         res.status(200).json(getRecipes)
     } catch (error) {
         console.log('/recipes (GET) ERROR: ', error)
@@ -36,6 +36,16 @@ router.post('/recipes/create', async (req, res, next) => {
         res.status(200).json(newRecipe);
     } catch(error) { 
         console.log('/recipes/create(POST) ERROR: ', error)
+    }
+})
+
+
+router.get('/recipes/:id', async (req, res, next)=>{
+    try {
+        let response = await Recipes.findOne({_id:req.params.id}).populate('author')
+        res.status(200).json(response);  
+    } catch (error) {
+      res.json(error);
     }
 })
 
