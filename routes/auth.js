@@ -19,17 +19,17 @@ router.post("/signup", isNotLoggedIn(), validationLoggin(), async (req, res, nex
     const {username, password, email} = req.body;
     console.log("INSIDE SIGNUP POST")
     console.log(username,password,email)
-    let username2="@"+username
+    // let username2="@"+username
     try {
-        const usernameExists = await User.findOne({ username:username2 }, "username")
+        const usernameExists = await User.findOne({ username:username }, "username")
         if (usernameExists) return next(createError(400));
 
     else {
-       console.log("can create new user: ", username2)
+       console.log("can create new user: ", username)
 
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashPass = bcrypt.hashSync(password, salt);
-        const newUser = await User.create({username:username2, password:hashPass, email:email})
+        const newUser = await User.create({username:username, password:hashPass, email:email})
         req.session.currentUser = newUser;
         console.log(newUser)
         res.status(200).json(newUser);
@@ -45,7 +45,7 @@ router.post("/signup", isNotLoggedIn(), validationLoggin(), async (req, res, nex
 router.post("/login", isNotLoggedIn(), validationLoggin(), async (req, res, next) => {
     const { username, password } = req.body;
     try {
-        const user = await User.findOne({ username:username});
+        const user = await User.findOne({ username});
         if (!user) {
             next(createError(404));
           } else if (bcrypt.compareSync(password, user.password)) {
@@ -60,6 +60,38 @@ router.post("/login", isNotLoggedIn(), validationLoggin(), async (req, res, next
         }
       }
     );
+
+
+  
+    router.post(
+      "/login",
+      isNotLoggedIn(),
+      validationLoggin(),
+      async (req, res, next) => {
+        const { username, password } = req.body;
+        try {
+          // revisa si el usuario existe en la BD
+          const user = await User.findOne({ username });
+          // si el usuario no existe, pasa el error al middleware error usando next()
+          if (!user) {
+            next(createError(404));
+          }
+          // si el usuario existe, hace hash del password y lo compara con el de la BD
+          // loguea al usuario asignando el document a req.session.currentUser, y devuelve un json con el user
+          else if (bcrypt.compareSync(password, user.password)) {
+            req.session.currentUser = user;
+            res.status(200).json(user);
+            return;
+          } else {
+            next(createError(401));
+          }
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
+
+
 
 
 // POST '/logout'
