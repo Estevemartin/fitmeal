@@ -12,10 +12,15 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'gallery',
-    format: async (req, file) => 'png', // supports promises as well
-    public_id: (req, file) => 'computed-filename-using-request',
+    allowedFormats: ['jpg', 'png'],
+    filename: function (req, res, cb) {
+        let fileName = res.originalname.split(".")
+        // cb(null, fileName[0])
+        return fileName[0]
+        // format: async (req, file) => 'png', // supports promises as well
+        // public_id: (req, file) => 'computed-filename-using-request',
   },
-});
+}});
  
 const uploader = multer({ storage });
 module.exports = uploader;

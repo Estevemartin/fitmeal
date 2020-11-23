@@ -36,14 +36,13 @@ router.get('/recipes/:id', async (req,res,next)=>{
     }
 })
 
-
-router.get('/recipes/:id', async (req, res, next)=>{
-    try {
-        let response = await Recipes.findOne({_id:req.params.id}).populate('author')
-        res.status(200).json(response);  
-    } catch (error) {
-      res.json(error);
-    }
-})
+// router.delete('/profile/recipe/:id', (req,res,next) =>{
+//     try {
+//         Recipes.findByIdAndDelete(req.params.id)
+//         res.json({message: `Recipe is removed successfully.`})
+//     } catch (error) {
+//         res.json(error);
+//     }
+// })
 
 module.exports = router;
