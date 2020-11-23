@@ -57,6 +57,19 @@ router.get('/category/:category', async (req,res,next)=>{
     }
 })
 
+router.get('/difficulty/:difficulty', async (req,res,next)=>{
+    try {
+        const difficulty =req.params.difficulty
+        console.log(req.params)
+        console.log(difficulty)
+        const getRecipe = await Recipes.find({difficulty:difficulty}).populate('author')
+        console.log(getRecipe)
+        res.status(200).json(getRecipe)
+    } catch (error) {
+        console.log('/recipes (GET) ERROR: ', error)
+    }
+})
+
 
 
 module.exports = router;
