@@ -44,5 +44,19 @@ router.get('/recipes/:id', async (req,res,next)=>{
 //         res.json(error);
 //     }
 // })
+router.get('/category/:category', async (req,res,next)=>{
+    try {
+        // console.log("EN SERVER, req.params.category:",req.params.category)
+        const category =req.params.category
+        // console.log("Filtered Category:", category)
+        const getRecipe = await Recipes.find({category:category}).populate('author')
+        // console.log("RECIPIE RESPONSE:",getRecipe)
+        res.status(200).json(getRecipe)
+    } catch (error) {
+        console.log('/recipes (GET) ERROR: ', error)
+    }
+})
+
+
 
 module.exports = router;
