@@ -65,7 +65,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTER MIDDLEWARE
-app.use("/auth", auth);
+app.use("/api/auth", auth);
 
 // ROUTES 
 const index = require("./routes/index");
