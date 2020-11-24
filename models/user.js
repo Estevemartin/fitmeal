@@ -8,9 +8,9 @@ const Schema = mongoose.Schema;
         password: {type: String, required: true},
         profilePictureUrl:{type: String,default:""},
         backgroundPictureUrl:{type:String,default:""},
-        saved: [{type:Schema.Types.ObjectId, ref:'Recipes'}],
-        liked: [{type:Schema.Types.ObjectId, ref:'Recipes'}],
-        recipes: {type:Schema.Types.ObjectId, ref:'Recipes'},
+        saved: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+        liked: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+        recipes: {type:Schema.Types.ObjectId, ref:'Recipe'},
         plans: {type:Schema.Types.ObjectId, ref:'Plans'},
     }, {
         timestamps: {

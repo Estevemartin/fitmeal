@@ -97,6 +97,19 @@ router.get('/difficulty/:difficulty', async (req,res,next)=>{
     }
 })
 
+router.post('/recipes/saved', async (req,res,next)=>{
+    try {
+        const userId =req.body.userId
+        // console.log(req.params)
+        // console.log(difficulty)
+        const getRecipe = await User.find({_id:userId},'saved').populate('saved')
+        console.log(getRecipe)
+        res.status(200).json(getRecipe)
+    } catch (error) {
+        console.log('/recipes (GET) ERROR: ', error)
+    }
+})
+
 router.post('/profile/update', async (req,res,next)=>{
     try {
         console.log(req.body)
