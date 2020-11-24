@@ -61,6 +61,10 @@ router.post("/login", isNotLoggedIn(), validationLoggin(), async (req, res, next
       }
     );
 
+
+
+
+
 // POST '/logout'
 router.post("/logout", isLoggedIn(), (req, res, next) => {
     req.session.destroy();
