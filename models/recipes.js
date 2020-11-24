@@ -11,7 +11,8 @@ const Schema = mongoose.Schema;
         difficulty: {type:String, required:true,enum:['easy','medium','hard']},
         portions: {type: String, required: true},
         popularity:{type:Number,default:0},
-        category:{type:String,required:true,enum:['breakfast','brunch','lunch','snack','dinner']}
+        category:{type:String,required:true,enum:['breakfast','brunch','lunch','snack','dinner']},
+        liked:[{type:Schema.Types.ObjectId, ref:'User'}]
     });
 
   const Recipe = mongoose.model('Recipe', recipeSchema);

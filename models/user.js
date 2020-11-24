@@ -8,7 +8,8 @@ const Schema = mongoose.Schema;
         password: {type: String, required: true},
         profilePictureUrl:{type: String,default:""},
         backgroundPictureUrl:{type:String,default:""},
-        saved: {type:Schema.Types.ObjectId, ref:'Recipes',type:Schema.Types.ObjectId, ref:'Plans'},
+        saved: [{type:Schema.Types.ObjectId, ref:'Recipes'}],
+        liked: [{type:Schema.Types.ObjectId, ref:'Recipes'}],
         recipes: {type:Schema.Types.ObjectId, ref:'Recipes'},
         plans: {type:Schema.Types.ObjectId, ref:'Plans'},
     }, {

@@ -116,6 +116,120 @@ router.post('/profile/update', async (req,res,next)=>{
     }
 })
 
+router.post('/profile', async (req,res,next)=>{
+    try {
+        // console.log(req.body)
+        // console.log(req.body.user.id)
+        // console.log(req.body.id)
+        const myId =req.body._id
+        
+        const getUser = await User.findById({_id:myId})
+
+        // // console.log(req.params)
+        // // console.log(difficulty)
+        // const getRecipe = await Recipes.find({difficulty:difficulty}).populate('author')
+        // console.log(getUser)
+        res.status(200).json(getUser)
+    } catch (error) {
+        console.log('/recipes (GET) ERROR: ', error)
+    }
+})
+
+router.post('/like', async (req,res,next)=>{
+    try {
+        console.log("---------  LIKE ROUTINE    ---------")
+        // console.log(req.body)
+        const {userId,recipeId} = req.body
+        
+        const currentUser = await User.findOne({_id:userId},'liked')
+        const currentRecipe = await Recipes.findOne({_id:recipeId})
+
+        // console.log("PREVIOUS LIKE STATE: ",currentUser.liked)
+        // console.log("SELECTED RECIPE ID:  ", recipeId)
+        // console.log("BOOLEAN IF LIKE IS INCLUDED:",currentUser.liked.includes(recipeId))
+        if (currentUser.liked.includes(recipeId)){
+
+            console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId), " --> LETS DISLIKE")
+
+            let index1 = currentUser.liked.indexOf(recipeId)
+            let index2 = currentRecipe.liked.indexOf(userId)
+
+            currentUser.liked.splice(index1,1)
+            currentRecipe.liked.splice(index2,1)
+
+            currentRecipe.popularity = currentRecipe.popularity - 1
+
+            console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId))
+
+        } else {
+
+            console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId), " --> LETS LIKE")
+
+            currentUser.liked.push(recipeId)
+            currentRecipe.liked.push(userId)
+
+            currentRecipe.popularity = currentRecipe.popularity + 1
+
+            console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId))
+
+        }
+        // console.log(currentRecipe)
+        const savedUser = await User.findByIdAndUpdate({_id:userId},currentUser)
+        const savedRecipe = await Recipes.findByIdAndUpdate({_id:recipeId},currentRecipe)
+        // console.log(savedRecipe)
+
+        res.status(200).json({savedUser:currentUser,savedRecipe:currentRecipe})
+    } catch (error) {
+        console.log('/recipes (GET) ERROR: ', error)
+    }
+})
+
+
+router.post('/save', async (req,res,next)=>{
+    try {
+        console.log("---------  SAVE ROUTINE    ---------")
+        // console.log(req.body)
+        const {userId,recipeId} = req.body
+        
+        const currentUser = await User.findOne({_id:userId},'saved')
+
+        // console.log("PREVIOUS LIKE STATE: ",currentUser.liked)
+        // console.log("SELECTED RECIPE ID:  ", recipeId)
+        // console.log("BOOLEAN IF LIKE IS INCLUDED:",currentUser.liked.includes(recipeId))
+        if (currentUser.saved.includes(recipeId)){
+
+            // console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId), " --> LETS DISLIKE")
+
+            let index1 = currentUser.saved.indexOf(recipeId)
+
+            currentUser.saved.splice(index1,1)
+
+
+            // console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId))
+
+        } else {
+
+            // console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId), " --> LETS LIKE")
+
+            currentUser.saved.push(recipeId)
+
+
+            // console.log("Recipe Likes:",currentRecipe.popularity, "Do I Like That Already? ", currentUser.liked.includes(recipeId))
+
+        }
+        // console.log(currentRecipe)
+        const savedUser = await User.findByIdAndUpdate({_id:userId},currentUser)
+        // const savedRecipe = await Recipes.findByIdAndUpdate({_id:recipeId},currentRecipe)
+        console.log(currentUser)
+
+        res.status(200).json({currentUser})
+    } catch (error) {
+        console.log('/recipes (GET) ERROR: ', error)
+    }
+})
+
+
+
 
 
 
