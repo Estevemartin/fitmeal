@@ -25,6 +25,9 @@
     "node-gyp": "^4.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.0"
+    "nodemon": "^1.19.0",
+    "engines": {
+      "node": "12.19.0"
+    }
   }
 }

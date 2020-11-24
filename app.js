@@ -30,8 +30,8 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.PUBLIC_DOMAIN],
-  })
+    origin: [process.env.PUBLIC_DOMAIN, 'https://fitmeal-app.herokuapp.com', 'http://fitmeal-app.herokuapp.com'],
+  }),
 );
 // app.use((req, res, next) => {
 //   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -76,6 +76,11 @@ app.use("/", index);
 app.use('/api', require('./routes/routes'));
 app.use('/api', require('./routes/file-upload-routes'));
 
+// ROUTE FOR SERVING REACT APP (index.html)
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 // ERROR HANDLING
 // catch 404 and forward to error handler
