@@ -94,19 +94,20 @@ router.post('/profile', async (req,res,next)=>{
         res.status(400).json(error)
     }
 })
-router.post('/profile/update', async (req,res,next)=>{
+router.patch('/profile/update', async (req,res,next)=>{
     try {
         // console.log(req.body)
         // console.log(req.body.user.id)
         // console.log(req.body.id)
-        const myId =req.body.id
-        
-        const getUser = await User.findByIdAndUpdate({_id:req.body._id},req.body)
+        const { profilePictureUrl, backgroundPictureUrl, email, _id } = req.body
+        // const myId =req.body.id
+        console.log("usuario", req.body)
+        const getUser = await User.findByIdAndUpdate(_id, {profilePictureUrl, backgroundPictureUrl, email}, {new:true})
 
         // // console.log(req.params)
         // // console.log(difficulty)
         // const getRecipe = await Recipes.find({difficulty:difficulty}).populate('author')
-        // console.log(getUser)
+        console.log(getUser)
         res.status(200).json(req.body)
     } catch (error) {
         console.log('/profile/update (POST) ERROR: ', error)
