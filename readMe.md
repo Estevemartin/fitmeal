@@ -10,252 +10,248 @@ The app that allow you to create, discover and share recipes and meal plans to i
 -  **Logout:** As a user I can logout from the ap so no one else can use it.
 -  **Home:** As an anon I can see the main features of the app, some mock ups, and the Signup and Login links.
 -  **Home:** As a user I can see a list of recipies and categories to explore.
--  **Plans:**
-      - **Home:** As a user I can see a list of plans made by other users.
-      - **Details:** As a user I can see the meals planned for each week day.
-- **Recipes:**
-      - **Home:** As a user I can see a list of the most popular recipes done by other users.
-      - **Details:** As a user I can see a picture of the meal, de ingredients, the preparation process and the needed time, the dificulty level and Like and Save the recipe.
+-  **Recipes:**
+    - **Home:** As a user I can see a list of the most popular recipes done by other users.
+    - **Details:** As a user I can see a picture of the meal, de ingredients, the preparation process and the preparatin time, the dificulty level and Like and Save the recipe.
 - **Profile:**
-  As a user I can edit my name, email, password, profile pictures and background picture. I can also log out, or delete my account.
-      - **My Recipies:** As a user I can see and edit de recipies that I have created.
-      - **My Plans:** As a user I can see and edit the meal plans that I have created.
-      - **Saved:** As a user I can see all the recipies and meal plans that I have saved from other users.
-
+  As a user I can edit my email, profile picture and background picture. I can also log out.
+  - **My Recipies:** As a user I can see and edit de recipies that I have created.
+  - **Saved:** As a user I can see all the recipies and meal plans that I have saved from other users.
 
 ## Backlog
 
-User profile:
-- Search, sort and filter recipes and meal plans by:
-    - Words present in the meal description.
-    - Ingredients.
-    - Preparation Time.
-    - Dificulty Level.
-- Show the total amount of calories of a meal or a plan.
-- Creat a shoppint list based on the ingredients and quantities that appear in a meal plan.
+- Create, edit, like, saved and share weekly meal plans made by selecting preivously created recipes.
+- Allow user to changes the password.
+- Allow user to delete the account.
+- Filter and sort search results.
+- Show the total amount of daily/weekly calories of a meal or plan.
+- Creat a shopping list based on the ingredients that appear in a meal plan.
 
+<br><br>
 
 # Client / Frontend (Pending)
 
 ## React Router Routes (React App)
+
 | Path                      | Component            | Permissions                 | Behavior                                                     |
 | ------------------------- | -------------------- | --------------------------- | ------------------------------------------------------------ |
-| `/`                       | SplashPage           | public `<Route>`            | Home page                                                    |
-| `/signup`                 | SignupPage           | anon only  `<AnonRoute>`    | Signup form, link to login, navigate to homepage after signup |
+| `/`                       | LandingPage          | public `<Route>`            | Landing Page                                                 |
+| `/signup`                 | SignupPage           | anon only `<AnonRoute>`     | Signup form, link to login, navigate to homepage after signup|
 | `/login`                  | LoginPage            | anon only `<AnonRoute>`     | Login form, link to signup, navigate to homepage after login |
-| `/tournaments`            | TournamentListPage   | user only `<PrivateRoute>`  | Shows all tournaments in a list                              |
-| `/tournaments/add`        | TournamentListPage   | user only `<PrivateRoute>`  | Edits a tournament                                           |
-| `/tournaments/:id`        | TournamentDetailPage | user only `<PrivateRoute>`  | Details of a tournament to edit                              |
-| `/tournament/:id`         | n/a                  | user only `<PrivateRoute>`  | Delete tournament                                            |
-| `/tournament/players`     | PlayersListPage      | user only  `<PrivateRoute>` | List of players of a tournament                              |
-| `/tournament/players/add` | PlayersListPage      | user only `<PrivateRoute>`  | Add a player to the tournament                               |
-| `/tournament/players/:id` | PlayersDetailPage    | user only `<PrivateRoute>`  | Edit player for tournament                                   |
-| `/tournament/players/:id` | PlayersListPage      | user only  `<PrivateRoute>` | Delete player from tournament                                |
-| `/tournament/tableview`   | TableView            | user only  `<PrivateRoute>` | Games view and brackets                                      |
-| `/tournament/ranks`       | RanksPage            | user only `<PrivateRoute>`  | Ranks list                                                   |
-| `/tournament/game`        | GameDetailPage       | user only `<PrivateRoute>`  | Game details                                                 |
-
-
-
-
-## Components (Pending)
-
-- LoginPage
-
-- SplashPage
-
-- TournamentListPage
-
-- Tournament Cell
-
-- TournamentDetailPage
-
-- TableViewPage
-
-- PlayersListPage
-
-- PlayerDetailPage
-
-- RanksPage
-
-- TournamentDetailPageOutput
-
-- Navbar
-
-
-  
-
- 
-
-## Services (Pending)
-
-- Auth Service
-  - auth.login(user)
-  - auth.signup(user)
-  - auth.logout()
-  - auth.me()
-  - auth.getUser() // synchronous
-- Tournament Service
-  - tournament.list()
-  - tournament.detail(id)
-  - tournament.add(id)
-  - tournament.delete(id)
-  
-- Player Service 
-
-  - player.detail(id)
-  - player.add(id)
-  - player.delete(id)
-
-- Game Service
-
-  - Game.put(id)
+| `/recipes`                | Recipes              | user only `<PrivateRoute>`  | Shows all recipes in a list                                  |
+| `/addNewRecipe`           | AddNewRecipe         | user only `<PrivateRoute>`  | Form to creat a new recipe                                   |
+| `/recipes/:id`            | RecipeDetails        | user only `<PrivateRoute>`  | Show recipe details                                           
+| `/profile`                | Profile              | user only `<PrivateRoute>`  | Show user profile                                            |
+| `/profile/savedRecipes`   | Profile              | user only `<PrivateRoute>`  | Show saved recipes by the current user                       |
+| `/profile/edit`           | EditProfile          | user only `<PrivateRoute>`  | Allow to edit profile settings                               |
+| `/search/:query`          | Search               | user only `<PrivateRoute>`  | Display search results                                       |
+| `/editRecipe/:id`         | AddNewRecipe         | user only `<PrivateRoute>`  | Allow to edit a recipe                                       |
 
 
 
 <br>
+
+## Components and Pages
+
+- Pages
+  - Landing Page
+  - Signup 
+  - Login 
+  - Search 
+  - Recipes 
+  - Recipe Details 
+  - Add New Recipe 
+  - Profile 
+  - Edit Profile 
+- Components
+  - Anon Route
+  - Private Route
+  - Navbar
+  - Navbar Mobile
+  - Serach Bar
+  - Search Recipes
+  - Slider
+  - Category Card
+  - Card Recipe
+  - Ingredient
+  - Profile Edit Card
+
+
+  
+
+ <br>
+
+## Services
+
+- Auth Service
+  - auth.signup(username, password, email)
+  - auth.login(username, passwordd)
+  - auth.logout()
+  - auth.me()
+- API Service
+  - PROFILE
+    - service.getUserInfo(userId)
+    - service.getMyRecipes(userId)
+    - service.getSavedsRecipes(userId)
+    - service.updateUserProfile(user)
+  - ACTIONS
+    - service.like(userId,recipeId)
+    - service.save(userId,recipeId)
+  - RECIPES
+    - service.getRecipes()
+    - service.getRecipeDetails(recipeId)
+    - service.updateRecipe(recipe)
+  - CREATE RECIPE
+    - service.handleUpload(theFile)
+    - service.saveNewRecipe(newRecipe)
+  -SEARCH
+    - service.getRecipesByCategory(category)
+    - service.getRecipesByDifficulty(difficulty)
+
+
+
+<br><br>
 
 
 # Server / Backend 
 
 
 ## Models
-
-User model
+<br>
+User model:
 
 ```javascript
-{
-  username: {type: String, required: true, unique: true},
-  email: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  profilePictureUrl:{type: String},
-  backgroundPictureUrl:{type:String},
-  saved: {type:Schema.Types.ObjectId, ref:'Recipes',type:Schema.Types.ObjectId, ref:'Plans', default:[]},
-  recipes: {type:Schema.Types.ObjectId, ref:'Recipes', default:[]},
-  plans: {type:Schema.Types.ObjectId, ref:'Plans', default:[]},
-
-}
+  const userSchema = new Schema({
+      username: {type: String, required: true, unique: true},
+      email: {type: String, required: true, unique: true},
+      password: {type: String, required: true},
+      profilePictureUrl:{type: String,default:""},
+      backgroundPictureUrl:{type:String,default:""},
+      saved: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+      liked: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+      recipes: {type:Schema.Types.ObjectId, ref:'Recipe'},
+      plans: {type:Schema.Types.ObjectId, ref:'Plans'},
+  }, {
+      timestamps: {
+          createdAt: 'created_at',
+          updatedAt: 'updated_at'
+      },
+  });
 ```
+<br>
 
-
-
-Recipes model
+Recipes model:
 
 ```javascript
- {
-   title: {type: String, required: true},
-   author: {type: Schema.Types.ObjectId, ref:'User', required: true},
-   picture: {type: String},
-   ingredientsText: {type: String, required:true},
-   preparation: {type: String, required:true},
-   preparationTime: {typee: String, required: true},
-   dificultyLevel: {type:String, required:true}
- }
+  const recipeSchema = new Schema({
+      title: {type: String, required: true},
+      author: {type: Schema.Types.ObjectId, ref:'User'},
+      imageUrl: {type: String, required: true},
+      ingredients: {type: Array, required:true},
+      steps: {type: Array, required:true},
+      prepTime: {type: String, required: true},
+      difficulty: {type:String, required:true,enum:['easy','medium','hard']},
+      portions: {type: String, required: true},
+      popularity:{type:Number,default:0},
+      category:{type:String,required:true,enum:['breakfast','brunch','lunch','snack','dinner']},
+      liked:[{type:Schema.Types.ObjectId, ref:'User'}]
+  });
 ```
+<br>
 
-
-
-Meal Plan model
+Meal Plan model:
 
 ```javascript
-{
+const recipeSchema = new Schema({
   title: {type: String, required: true},
-   author: {type: Schema.Types.ObjectId, ref:'User', required: true},
-   picture: {type: String},
-   plan:{
-       monday:{
-           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
-       },
-       tuesday:{
-           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
-       },
-       wednesday:{
-           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
-       },
-       thursday:{
-           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
-       },
-       friday:{
-           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
-       },
-       saturday:{
-           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
-       },
-       sunday:{
-           breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
-           dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
-       }       
+  author: {type: Schema.Types.ObjectId, ref:'User', required: true},
+  picture: {type: String},
+  plan:{
+    monday:{
+      breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+      },
+    tuesday:{
+      breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+      },
+    wednesday:{
+      breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+      },
+    thursday:{
+      breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+      },
+    friday:{
+      breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+      },
+    saturday:{
+      breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+      },
+    sunday:{
+      breakfast:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      brunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      lunch:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      snack:{type:Schema.Types.ObjectId, ref:'Recipes'},
+      dinner:{type:Schema.Types.ObjectId, ref:'Recipes'}
+      }       
    }
-}
+});
 ```
 
+<br><br>
+
+## API Endpoints (backend routes)
 
 <br>
 
-
-## API Endpoints (backend routes) (Pending)
-
-| HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
-| ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
-| GET         | `/auth/profile    `           | Saved session                | 200            | 404          | Check if user is logged in and return profile page           |
-| POST        | `/auth/signup`                | {name, email, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`                 | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session |
-| POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
-| GET         | `/tournaments`                |                              |                | 400          | Show all tournaments                                         |
-| GET         | `/tournaments/:id`            | {id}                         |                |              | Show specific tournament                                     |
-| POST        | `/tournaments/add-tournament` | {}                           | 201            | 400          | Create and save a new tournament                             |
-| PUT         | `/tournaments/edit/:id`       | {name,img,players}           | 200            | 400          | edit tournament                                              |
-| DELETE      | `/tournaments/delete/:id`     | {id}                         | 201            | 400          | delete tournament                                            |
-| GET         | `/players`                    |                              |                | 400          | show players                                                 |
-| GET         | `/players/:id`                | {id}                         |                |              | show specific player                                         |
-| POST        | `/players/add-player`         | {name,img,tournamentId}      | 200            | 404          | add player                                                   |
-| PUT         | `/players/edit/:id`           | {name,img}                   | 201            | 400          | edit player                                                  |
-| DELETE      | `/players/delete/:id`         | {id}                         | 200            | 400          | delete player                                                |
-| GET         | `/games`                      | {}                           | 201            | 400          | show games                                                   |
-| GET         | `/games/:id`                  | {id,tournamentId}            |                |              | show specific game                                           |
-| POST        | `/games/add-game`             | {player1,player2,winner,img} |                |              | add game                                                     |
-| POST        | `/games/add-all-games`        |                              |                |              | add all games from a tournament. Gets a list of players and populates them via algorithm. |
-| PUT         | `/games/edit/:id`             | {winner,score}               |                |              | edit game                                                    |
+| HTTP Method | URL                           | Request Body                 | Success status | Error Status | Description                                                  |
+| ----------- | ----------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
+| POST        | `/auth/signup`                | {username, email, password}  | 200            | 400          | Checks if fields user not exists (409), then create user with encrypted password, and store user in session |
+| POST        | `/auth/login`                 | {username, password}         | 200            | 401/404      | Checks if user exists (404), and if password matches (401), then stores user in session |
+| POST        | `/auth/logout`                | (empty)                      | 204            |              | Logs out the user                                            |
+| GET         | `/auth/me`                    | (empty)                      |                |              | Get the current user session                                 |
+| GET         | `/recipes`                    |                              | 200            | 400          | Get all the recipes                                          |
+| GET         | `/recipes/:id`                | {recipeId}                   | 200            | 400          | Get one recipe information                                   |
+| POST        | `/recipes/create`             | {recipe}                     | 200            | 400          | Create and save a new recipe                                 |
+| POST        | `/recipes/update`             | {recipe}                     | 200            | 400          | Edit a recipe                                                |
+| POST        | `/recipes/saved`              | {userId}                     | 200            | 400          | Get all saved recipes by the current user                    |
+| POST        | `/profile`                    | {userId}                     | 200            | 400          | Get a user information                                       |
+| POST        | `/profile/update`             | {user}                       | 200            | 400          | Update user information                                      |
+| POST        | `/myRecipes`                  | {userId}                     | 200            | 400          | Get recipes created by a user                                |
+| GET         | `/category/:category`         | {category}                   | 200            | 400          | Get recipes from a given category                            |
+| GET         | `/difficulty/:difficulty`     | {difficulty}                 | 200            | 400          | Get recipes from a given difficulty                          |
+| POST        | `/like`                       | {userId,recipeId}            | 200            | 400          | Save recipe as the liked                                     |
+| POST        | `/save`                       | {userId,recipeId}            | 200            | 400          | Save recipe as the saved                                     |
 
 
-<br>
+
+<br><br>
 
 
 ## Links
 
-[Trello](https://trello.com/b/J9EbMXg1/fitmeal) 
+<br>
 
-[Client repository](https://github.com/Estevemartin/fitmeal-client)
-
-[Server repository](https://github.com/Estevemartin/fitmeal-server)
-
-[Deploy]()
-
-[Slides]()
+[Deploy](http://fitmeal-app.herokuapp.com/) - [Client repository](https://github.com/Estevemartin/fitmeal-client) - [Server repository](https://github.com/Estevemartin/fitmeal-server) - [Trello](https://trello.com/b/J9EbMXg1/fitmeal) - [Slides]()
