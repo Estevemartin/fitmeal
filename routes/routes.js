@@ -66,7 +66,7 @@ router.post('/recipes/delete', async (req,res,next)=>{
         console.log(recipeId)
         // console.log(difficulty)
         const getRecipe = await Recipes.findOneAndDelete({_id:recipeId})
-        console.log(getRecipe)
+        // console.log(getRecipe)
         res.status(200).json(getRecipe)
     } catch (error) {
         console.log('/recipes/saved (POST) ERROR: ', error)
@@ -101,13 +101,13 @@ router.patch('/profile/update', async (req,res,next)=>{
         // console.log(req.body.id)
         const { profilePictureUrl, backgroundPictureUrl, email, _id } = req.body
         // const myId =req.body.id
-        console.log("usuario", req.body)
+        // console.log("usuario", req.body)
         const getUser = await User.findByIdAndUpdate(_id, {profilePictureUrl, backgroundPictureUrl, email}, {new:true})
 
         // // console.log(req.params)
         // // console.log(difficulty)
         // const getRecipe = await Recipes.find({difficulty:difficulty}).populate('author')
-        console.log(getUser)
+        // console.log(getUser)
         res.status(200).json(req.body)
     } catch (error) {
         console.log('/profile/update (POST) ERROR: ', error)
@@ -251,14 +251,5 @@ router.post('/save', async (req,res,next)=>{
     }
 })
 
-
-// router.delete('/profile/recipe/:id', (req,res,next) =>{
-//     try {
-//         Recipes.findByIdAndDelete(req.params.id)
-//         res.json({message: `Recipe is removed successfully.`})
-//     } catch (error) {
-//         res.json(error);
-//     }
-// })
 
 module.exports = router;
