@@ -60,6 +60,19 @@ router.post('/recipes/saved', async (req,res,next)=>{
         res.status(400).json(error)
     }
 })
+router.post('/recipes/delete', async (req,res,next)=>{
+    try {
+        const recipeId=req.body.recipeId
+        console.log(recipeId)
+        // console.log(difficulty)
+        const getRecipe = await Recipes.findOneAndDelete({_id:recipeId})
+        console.log(getRecipe)
+        res.status(200).json(getRecipe)
+    } catch (error) {
+        console.log('/recipes/saved (POST) ERROR: ', error)
+        res.status(400).json(error)
+    }
+})
 
 //PROFILE
 router.post('/profile', async (req,res,next)=>{
@@ -94,7 +107,7 @@ router.post('/profile/update', async (req,res,next)=>{
         // // console.log(difficulty)
         // const getRecipe = await Recipes.find({difficulty:difficulty}).populate('author')
         // console.log(getUser)
-        res.status(200).json(getUser)
+        res.status(200).json(req.body)
     } catch (error) {
         console.log('/profile/update (POST) ERROR: ', error)
         res.status(400).json(error)
