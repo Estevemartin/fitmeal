@@ -2,6 +2,17 @@
 
 The app that allow you to create, discover and share recipes and meal plans to improve your eating habits.
 
+
+## User Navigation Flow
+
+![alt text](public/navigations.png "Title")
+
+
+## Wireframes low fidelity
+
+![alt text](public/wireframes.png "Title")
+
+
 ## User Stories
 
 -  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
@@ -12,11 +23,21 @@ The app that allow you to create, discover and share recipes and meal plans to i
 -  **Home:** As a user I can see a list of recipies and categories to explore.
 -  **Recipes:**
     - **Home:** As a user I can see a list of the most popular recipes done by other users.
+    - **Like:** As a user I can give likes to recipes.
+    - **Save:** As a user I can save recipes.
     - **Details:** As a user I can see a picture of the meal, de ingredients, the preparation process and the preparatin time, the dificulty level and Like and Save the recipe.
+      - **Profile:** As a user I can see the profile of the user that created a recipe, and the recipes created by that user.
 - **Profile:**
   As a user I can edit my email, profile picture and background picture. I can also log out.
   - **My Recipies:** As a user I can see and edit de recipies that I have created.
   - **Saved:** As a user I can see all the recipies and meal plans that I have saved from other users.
+
+
+## User Stories Mapping
+
+![alt text](public/user-stories.png "Title")
+
+
 
 ## Backlog
 
@@ -29,21 +50,22 @@ The app that allow you to create, discover and share recipes and meal plans to i
 
 <br><br>
 
-# Client / Frontend (Pending)
+# Client / Frontend
 
 ## React Router Routes (React App)
 
 | Path                      | Component            | Permissions                 | Behavior                                                     |
 | ------------------------- | -------------------- | --------------------------- | ------------------------------------------------------------ |
 | `/`                       | LandingPage          | public `<Route>`            | Landing Page                                                 |
-| `/signup`                 | SignupPage           | anon only `<AnonRoute>`     | Signup form, link to login, navigate to homepage after signup|
-| `/login`                  | LoginPage            | anon only `<AnonRoute>`     | Login form, link to signup, navigate to homepage after login |
+| `/signup`                 | SignUp               | anon only `<AnonRoute>`     | Signup form, link to login, navigate to homepage after signup|
+| `/login`                  | LogIn                | anon only `<AnonRoute>`     | Login form, link to signup, navigate to homepage after login |
 | `/recipes`                | Recipes              | user only `<PrivateRoute>`  | Shows all recipes in a list                                  |
-| `/addNewRecipe`           | AddNewRecipe         | user only `<PrivateRoute>`  | Form to creat a new recipe                                   |
 | `/recipes/:id`            | RecipeDetails        | user only `<PrivateRoute>`  | Show recipe details                                           
 | `/profile`                | Profile              | user only `<PrivateRoute>`  | Show user profile                                            |
 | `/profile/savedRecipes`   | Profile              | user only `<PrivateRoute>`  | Show saved recipes by the current user                       |
 | `/profile/edit`           | EditProfile          | user only `<PrivateRoute>`  | Allow to edit profile settings                               |
+| `/profile/:id`            | ProfileId            | user only `<PrivateRoute>`  | Show user profile and his recipes                            |
+| `/addNewRecipe`           | AddNewRecipe         | user only `<PrivateRoute>`  | Form to creat a new recipe                                   |
 | `/search/:query`          | Search               | user only `<PrivateRoute>`  | Display search results                                       |
 | `/editRecipe/:id`         | AddNewRecipe         | user only `<PrivateRoute>`  | Allow to edit a recipe                                       |
 
@@ -62,6 +84,7 @@ The app that allow you to create, discover and share recipes and meal plans to i
   - Recipe Details 
   - Add New Recipe 
   - Profile 
+  - Profile Id
   - Edit Profile 
 - Components
   - Anon Route
@@ -73,8 +96,11 @@ The app that allow you to create, discover and share recipes and meal plans to i
   - Slider
   - Category Card
   - Card Recipe
-  - Ingredient
+  - Ingredients
   - Profile Edit Card
+  - Profile Id Card
+  - Profile Saved Card
+  - Scroll Into View
 
 
   
@@ -86,6 +112,7 @@ The app that allow you to create, discover and share recipes and meal plans to i
 - Auth Service
   - auth.signup(username, password, email)
   - auth.login(username, passwordd)
+  - auth.updateUser(userId)
   - auth.logout()
   - auth.me()
 - API Service
@@ -101,6 +128,7 @@ The app that allow you to create, discover and share recipes and meal plans to i
     - service.getRecipes()
     - service.getRecipeDetails(recipeId)
     - service.updateRecipe(recipe)
+    - service.deleteRecipe(recipeId)
   - CREATE RECIPE
     - service.handleUpload(theFile)
     - service.saveNewRecipe(newRecipe)
@@ -237,6 +265,7 @@ const recipeSchema = new Schema({
 | POST        | `/recipes/create`             | {recipe}                     | 200            | 400          | Create and save a new recipe                                 |
 | POST        | `/recipes/update`             | {recipe}                     | 200            | 400          | Edit a recipe                                                |
 | POST        | `/recipes/saved`              | {userId}                     | 200            | 400          | Get all saved recipes by the current user                    |
+| POST        | `/recipes/delete`             | {userId}                     | 200            | 400          | Delete a recipe from database                                |
 | POST        | `/profile`                    | {userId}                     | 200            | 400          | Get a user information                                       |
 | POST        | `/profile/update`             | {user}                       | 200            | 400          | Update user information                                      |
 | POST        | `/myRecipes`                  | {userId}                     | 200            | 400          | Get recipes created by a user                                |
@@ -254,4 +283,4 @@ const recipeSchema = new Schema({
 
 <br>
 
-[Deploy](http://fitmeal-app.herokuapp.com/) - [Client repository](https://github.com/Estevemartin/fitmeal-client) - [Server repository](https://github.com/Estevemartin/fitmeal-server) - [Trello](https://trello.com/b/J9EbMXg1/fitmeal) - [Slides]()
+[Deploy](http://fitmeal-app.herokuapp.com/) - [Client repository](https://github.com/Estevemartin/fitmeal-client) - [Server repository](https://github.com/Estevemartin/fitmeal-server) - [Trello](https://trello.com/b/J9EbMXg1/fitmeal) - [Slides](https://docs.google.com/presentation/d/1f1RxjjzIpwOksLNPENsEpvTSnnmaH9fK4CCU-LEwlo0/edit?usp=sharing)
