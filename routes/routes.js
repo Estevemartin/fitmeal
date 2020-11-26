@@ -120,6 +120,7 @@ router.post('/myRecipes', async (req,res,next)=>{
         // console.log(req.body.id)
 
         const myId =req.body.id
+        // console.log("MyId:",myId)
         const getRecipes = await Recipes.find({author:myId}).populate('author')
         // console.log("RECIPIE RESPONSE:",getRecipes)
         res.status(200).json(getRecipes)
